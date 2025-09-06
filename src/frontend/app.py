@@ -21,10 +21,19 @@ def main():
             return
         try:
             with st.spinner("Fetching data..."):
+                # Get numeric user ID from handle
                 user_id = get_user_id(username)
+                
+                # Convert timeframe to start/end ISO timestamps
                 start, end = get_time_range(timeframe)
+                
+                # Fetch tweets mentioning the selected sub-project
                 tweets = fetch_tweets(user_id, start, end, sub_project)
+                
+                # Calculate contribution metrics
                 metrics = calculate_metrics(tweets)
+                
+                # Display metrics on dashboard
                 display_metrics(metrics)
         except Exception as e:
             st.error(f"Error fetching metrics: {e}")
